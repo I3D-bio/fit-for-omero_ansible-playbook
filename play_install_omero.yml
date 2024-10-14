@@ -1,15 +1,25 @@
 ---
 - hosts: all
+  become: yes
+
   tasks:
     - name: Set OS distribution dependent variables
       include_vars: "{{ ansible_facts['os_family'] | lower }}.yml"
-      when: ansible_facts['os_family'] == "Debian"
+      when:
+        - ansible_facts['os_family'] in ["RedHat", "Debian"]
 
-- hosts: all
   vars_files:
-    - vars/vault.yml  # Encrypt/decrypt with the command: ansible-vault
+    - vars/vault.yml  # Encrypt/decrypt with ansible-vault
     - vars/omero-server_config.yml
     - vars/omero-web_config.yml
+
+  vars:
+    firewall_ports:
+      - { port: 80, proto: "tcp" }
+      - { port: 443, proto: "tcp" }
+      - { port: 4063, proto: "tcp" }
+      - { port: 4064, proto: "tcp" }
+
   roles:
     - role: ome.postgresql
       postgresql_databases:
@@ -32,22 +42,54 @@
     - role: ome.omero_web
 
   tasks:
-    - name: Open firewalld port for omero.web  # Works for RockyLinux9
-      firewalld:
-        service: "{{ item }}"
-        permanent: yes
-        state: enabled
-      notify: reload firewalld
-      loop:
-        - https
-        - http
+    - name: Check if the system is Rocky Linux or Ubuntu
+      ansible.builtin.package_facts:
 
-    - name: Open firewalld port for omero.server # Works for RockyLinux9
-      firewalld:
-        port: "{{ item }}"
+    - name: Install firewalld on Rocky Linux
+      ansible.builtin.yum:
+        name: firewalld
+        state: present
+      when: ansible_facts.os_family == "RedHat"
+
+    - name: Install ufw on Ubuntu
+      ansible.builtin.apt:
+        name: ufw
+        state: present
+        update_cache: yes
+      when: ansible_facts.os_family == "Debian"
+
+    - name: Ensure firewalld is running on Rocky Linux
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: yes
+      when: ansible_facts.os_family == "RedHat"
+
+    - name: Ensure ufw is enabled on Ubuntu
+      ansible.builtin.ufw:
+        state: enabled
+      when: ansible_facts.os_family == "Debian"
+
+    - name: Open firewall ports on Rocky Linux (firewalld)
+      ansible.builtin.firewalld:
+        port: "{{ item.port }}/{{ item.proto }}"
         permanent: yes
         state: enabled
-      notify: reload firewalld
-      loop:
-        - 4063/tcp
-        - 4064/tcp
+      loop: "{{ firewall_ports }}"
+      when: ansible_facts.os_family == "RedHat"
+      notify: reload_firewalld
+
+    - name: Open firewall ports on Ubuntu (ufw)
+      ansible.builtin.ufw:
+        rule: allow
+        port: "{{ item.port }}"
+        proto: "{{ item.proto }}"
+      loop: "{{ firewall_ports }}"
+      when: ansible_facts.os_family == "Debian"
+
+  handlers:
+    - name: reload_firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+      when: ansible_facts.os_family == "RedHat"
