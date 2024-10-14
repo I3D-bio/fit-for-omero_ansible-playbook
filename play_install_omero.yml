@@ -87,6 +87,14 @@
       loop: "{{ firewall_ports }}"
       when: ansible_facts.os_family == "Debian"
 
+    - name: Create the omero.sh profile using a template in /etc/profile.d
+      ansible.builtin.template:
+        src: templates/omero.sh.j2
+        dest: /etc/profile.d/omero.sh
+        owner: root
+        group: root
+        mode: '0644'
+
   handlers:
     - name: reload_firewalld
       ansible.builtin.service:
