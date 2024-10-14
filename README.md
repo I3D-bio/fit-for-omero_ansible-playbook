@@ -14,6 +14,7 @@ See also [this OME repository](https://github.com/ome/prod-playbooks/tree/master
 # Using this repository
 
 The commands are given assuming you have a Rocky Linux 9. For Ubuntu 22.04, perform the equivalent commands.
+
 Connect to your test server, update it and install prerequisites to run Ansible.
 ```
 sudoer> sudo dnf -y upgrade
