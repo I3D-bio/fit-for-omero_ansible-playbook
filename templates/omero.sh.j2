@@ -1,0 +1,11 @@
+# /etc/profile.d/omero.sh
+
+if [ "$USER" == "omero-web" ]; then
+  export OMERODIR=/opt/omero/web/OMERO.web
+elif [ "$USER" == "omero-server" ]; then
+  export OMERODIR=/opt/omero/server/OMERO.server
+  export ICE_HOME=/opt/ice
+  export PATH="$ICE_HOME/bin:$PATH"
+  export SLICEPATH="$ICE_HOME/slice"
+  export ICE_CONFIG=/opt/omero/server/OMERO.server/etc/ice.config
+fi
