@@ -1,0 +1,6 @@
+---
+
+  omero_root_pwd: "strong_pass"
+  omero_db_pwd: "strong_pass"
+  omero_db_user: "omero"
+  omero_db_name: "omero-prod"

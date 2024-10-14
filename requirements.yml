@@ -1,0 +1,41 @@
+---
+
+- src: ome.postgresql
+  version: 5.4.0
+
+- src: ome.postgresql_client
+  version: 0.4.3
+
+- src: ome.omero_server
+  version: 6.1.0
+
+- src: ome.omero_web
+  version: 5.1.1
+
+- src: ome.omero_common
+  version: 0.4.0
+
+- src: ome.basedeps
+  version: 1.3.2
+
+- src: ome.java
+  version: 2.2.0
+
+- src: ome.python3_virtualenv
+  version: 0.2.0
+
+- src: ome.ice
+  version: 4.4.4
+
+- src: ome.nginx
+  version: 2.2.1
+
+- src: ome.selinux_utils
+  version: 2.1.1
+
+- src: ome.redis
+  version: 1.3.0
+
+- src: ome.deploy_archive
+  version: 0.2.0
+

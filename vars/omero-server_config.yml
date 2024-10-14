@@ -1,0 +1,29 @@
+---
+
+# See https://github.com/ome/ansible-role-omero-server for all playbook configs
+# See https://omero.readthedocs.io/en/stable/sysadmins/config.html for all omero configs
+  omero_server_release: 5.6.13
+  omero_server_config_set:
+    omero.certificates.owner: "/C=DE/ST=NRW/L=Dusseldorf/O=CAi"
+    omero.client.icetransports: ssl,wss,tcp
+    omero.db.poolsize: 60
+    omero.jvmcfg.max_system_memory: 3072
+    omero.jvmcfg.percent.blitz: 50
+    omero.jvmcfg.percent.indexer: 20
+    omero.jvmcfg.percent.pixeldata: 20
+    omero.glacier2.IceSSL.Ciphers: "ADH:HIGH"
+    omero.glacier2.IceSSL.DefaultDir: /opt/omero/server/selfsigned
+    omero.glacier2.IceSSL.CAs: server.pem
+    omero.glacier2.IceSSL.CertFile: server.p12
+    omero.glacier2.IceSSL.Password: secret
+    omero.fs.repo.path: "%user%_%userId%/%thread%/%year%-%month%/%day%/%time%"
+    omero.policy.binary_access: "+read,+write,+image,+plate"
+  omero_server_python_addons:
+    - omero-cli-duplicate
+    - omero-cli-render
+    - omero-metadata"
+    - omero-py
+    - "reportlab<3.6"
+    - markdown
+    - scipy
+    - matplotlib

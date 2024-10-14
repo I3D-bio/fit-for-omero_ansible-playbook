@@ -1,0 +1,49 @@
+---
+
+# See https://github.com/ome/ansible-role-omero-web for all playbook configs
+# See https://omero.readthedocs.io/en/stable/sysadmins/config.html for all omero configs
+  omero_web_config_set:
+    omero.web.apps:
+      - "omero_iviewer"
+      - "omero_figure"
+      - "omero_parade"
+      - "omero_tagsearch"
+      - "omero_autotag"
+    omero.web.ui.center_plugins:
+      - ["Auto Tag", "omero_autotag/auto_tag_init.js.html", "auto_tag_panel"]
+      - ["Parade", "omero_parade/init.js.html", "omero_parade"]
+    omero.web.ui.top_links:
+      - ["Data", "webindex", {"title": "Browse Data via Projects, Tags etc"}]
+      - ["History", "history", {"title": "History"}]
+      - ["Help", "https://help.openmicroscopy.org/", {"title": "Open OMERO user guide in a new tab", "target": "new"}]
+      - ["Figure", "figure_index", {"title": "Open Figure in new tab", "target": "_blank"}]
+      - ["Tag Search", "tagsearch",  {"title": "Filter data using tags"}]
+    omero.web.open_with:
+      - ["Image viewer", "webgateway", {"supported_objects": ["image"], "script_url": "webclient/javascript/ome.openwith_viewer.js"}]
+      - ["omero_figure", "new_figure", {"supported_objects":["images"], "target": "_blank", "label": "OMERO.figure"}]
+      - - omero_iviewer
+        - omero_iviewer_index
+        - supported_objects:
+            - images
+            - dataset
+            - well
+          script_url: omero_iviewer/openwith.js
+          label: OMERO.iviewer
+    omero.web.viewer.view: omero_iviewer.views.index
+    omero.web.caches:
+      default:
+        BACKEND: "django_redis.cache.RedisCache"
+        LOCATION: "redis://127.0.0.1:6379/0"
+    omero.web.session_engine: "django.contrib.sessions.backends.cache"
+    omero_web_setup_redis_session: true
+    omero.web.iviewer.enable_mirror: true
+    omero.web.time_zone: Europe/Berlin
+    omero.web.show_forgot_password: false
+  omero_web_python_addons:
+    - "omero-py==5.19.5"
+    - "omero-iviewer==0.14.0"
+    - "omero-figure==7.1.0"
+    - "omero-parade==0.2.4"
+    - "omero-tagsearch==4.2.0"
+    - "omero-autotag==4.0.1"
+    - "django-redis==5.0.0"
