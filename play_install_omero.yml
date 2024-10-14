@@ -2,12 +2,6 @@
 - hosts: all
   become: yes
 
-  tasks:
-    - name: Set OS distribution dependent variables
-      include_vars: "{{ ansible_facts['os_family'] | lower }}.yml"
-      when:
-        - ansible_facts['os_family'] in ["RedHat", "Debian"]
-
   vars_files:
     - vars/vault.yml  # Encrypt/decrypt with ansible-vault
     - vars/omero-server_config.yml
