@@ -22,7 +22,7 @@
   omero_server_python_addons:
     - omero-cli-duplicate
     - omero-cli-render
-    - omero-metadata"
+    - omero-metadata
     - omero-py
     - "reportlab<3.6"
     - markdown
