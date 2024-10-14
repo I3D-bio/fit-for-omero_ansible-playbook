@@ -153,7 +153,7 @@
       become: true
       ansible.builtin.get_url:
         url: "https://raw.githubusercontent.com/ome/omero-figure/\
-          {{ omero_figure_script_release }}/omero_figure/scripts/omero/\
+          refs/tags/v{{ omero_figure_script_release }}/omero_figure/scripts/omero/\
           figure_scripts/Figure_To_Pdf.py"
         dest: "{{ omero_server_basedir }}/OMERO.server/lib/\
           scripts/omero/figure_scripts/Figure_To_Pdf.py"
