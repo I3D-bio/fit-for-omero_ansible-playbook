@@ -48,3 +48,5 @@
     - "omero-tagsearch==4.2.0"
     - "omero-autotag==4.0.1"
     - "django-redis==5.0.0"
+  omero.web.nginx_server_extra_config:
+    - 'include /etc/nginx/conf.d-nested-includes/*.conf;'
