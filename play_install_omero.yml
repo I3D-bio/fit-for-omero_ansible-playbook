@@ -94,6 +94,13 @@
         owner: root
         group: root
         mode: '0644'
+
+    - name: NGINX - create nested includes directory
+      become: true
+      ansible.builtin.file:
+        path: /etc/nginx/conf.d-nested-includes
+        state: directory
+        mode: 0755
         
     - name: NGINX - OMERO websockets
       become: true
