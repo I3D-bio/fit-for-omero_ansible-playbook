@@ -44,3 +44,16 @@ sudo ansible-galaxy install -r requirements.yml
 sudo ansible-playbook --ask-vault-pass --become --connection=local -i inventory.yml play_install_omero.yml
 ```
 
+# Additional considerations
+* File descriptor limit: see https://omero.readthedocs.io/en/stable/sysadmins/troubleshooting.html#too-many-open-files
+* SSL Certificates for nginx
+* Tempory fix of the memory leak with image import:
+  * https://forum.image.sc/t/first-release-of-omero-process-container-steward/85067
+  * https://github.com/glencoesoftware/omero-pc-steward#installation
+ 
+# Server update
+An update of OMERO.sever and OMERO.web is performed by changing the desired version in the respective config files (`vars/omero-server_config.yml`, `vars/omero-web_config.yml`) and re-running the playbooks as described above.
+
+In the case of an OMERO.server upgrade, the previous version of OMERO.server is kept. Just from using the playbook given here, scripts that were imported manually or changed will not be moved to the new OMERO.server folder.
+
+In the case of a change of configurations (for either web or server), the configuration files in `/opt/omero/web/config/` or `/opt/omero/server/config/` are regenerated.
