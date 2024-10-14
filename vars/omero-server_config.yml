@@ -3,7 +3,7 @@
 # See https://github.com/ome/ansible-role-omero-server for all playbook configs
 # See https://omero.readthedocs.io/en/stable/sysadmins/config.html for all omero configs
   postgresql_version: "15"
-  omero_server_release: 5.6.13
+  omero_server_release: 5.6.12
   omero_server_config_set:
     omero.certificates.owner: "/C=DE/ST=NRW/L=Dusseldorf/O=CAi"
     omero.client.icetransports: ssl,wss,tcp
