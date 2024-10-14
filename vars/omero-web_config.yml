@@ -2,6 +2,7 @@
 
 # See https://github.com/ome/ansible-role-omero-web for all playbook configs
 # See https://omero.readthedocs.io/en/stable/sysadmins/config.html for all omero configs
+  omero_web_systemd_limit_nofile: 16384
   omero_web_config_set:
     omero.web.apps:
       - "omero_iviewer"
