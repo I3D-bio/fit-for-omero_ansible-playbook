@@ -1,0 +1,53 @@
+---
+- hosts: all
+  tasks:
+    - name: Set OS distribution dependent variables
+      include_vars: "{{ ansible_facts['os_family'] | lower }}.yml"
+      when: ansible_facts['os_family'] == "Debian"
+
+- hosts: all
+  vars_files:
+    - vars/vault.yml  # Encrypt/decrypt with the command: ansible-vault
+    - vars/omero-server_config.yml
+    - vars/omero-web_config.yml
+  roles:
+    - role: ome.postgresql
+      postgresql_databases:
+        - name: "{{ omero_db_name }}"
+          owner: "{{ omero_db_user }}"
+      postgresql_users:
+        - user: "{{ omero_db_user }}"
+          password: "{{ omero_db_pwd }}"
+          databases: 
+            - "{{ omero_db_name }}"
+
+    - role: ome.omero_server
+      omero_server_rootpassword: "{{ omero_root_pwd }}"
+      omero_server_dbuser: "{{ omero_db_user }}"
+      omero_server_dbname: "{{ omero_db_name }}"
+      omero_server_dbpassword: "{{ omero_db_pwd }}"
+
+    - role: ome.redis  # Used by Django to cache responses
+
+    - role: ome.omero_web
+
+  tasks:
+    - name: Open firewalld port for omero.web  # Works for RockyLinux9
+      firewalld:
+        service: "{{ item }}"
+        permanent: yes
+        state: enabled
+      notify: reload firewalld
+      loop:
+        - https
+        - http
+
+    - name: Open firewalld port for omero.server # Works for RockyLinux9
+      firewalld:
+        port: "{{ item }}"
+        permanent: yes
+        state: enabled
+      notify: reload firewalld
+      loop:
+        - 4063/tcp
+        - 4064/tcp
