@@ -13,34 +13,34 @@ See also [this OME repository](https://github.com/ome/prod-playbooks/tree/master
 
 # Using this repository
 
-The commands are given assuming you have a Rocky Linux 9 or Ubuntu 22.04.
+The commands are given assuming you have a Rocky Linux 9 or Ubuntu 22.04, using a sudoer account.
 Connect to your test server, update it and install prerequisites to run Ansible.
 
 For Rocky Linux 9
 ```
-sudoer> sudo dnf -y upgrade
-sudoer> sudo dnf install epel-release -y
-sudoer> sudo dnf install git ansible python3-pip -y
-sudoer> sudo reboot
+sudo dnf -y upgrade
+sudo dnf install epel-release -y
+sudo dnf install git ansible python3-pip -y
+sudo reboot
 ```
 
 For Ubuntu 22.04
 ```
-sudoer> sudo apt-get update -y && sudo apt-get upgrade -y
-sudoer> sudo apt install -y git ansible python3-pip
-sudoer> sudo reboot
+sudo apt-get update -y && sudo apt-get upgrade -y
+sudo apt install -y git ansible python3-pip
+sudo reboot
 ```
 
 Clone this repository with a sudoer account
 ```
-sudoer> git clone https://github.com/I3D-bio/fit-for-omero_ansible-playbook && cd fit-for-omero_ansible-playbook
+git clone https://github.com/I3D-bio/fit-for-omero_ansible-playbook && cd fit-for-omero_ansible-playbook
 ```
 
 Execute the playbook locally to install PostgreSQL, OMERO.server, and OMERO.web.
 Encrypting the vault containing the passwords is good practice, but not a requirement for this to work.
 ```
-sudoer> ansible-vault encrypt vars/vault.yml  
-sudoer> sudo ansible-galaxy install -r requirements.yml
-sudoer> sudo ansible-playbook --ask-vault-pass --become --connection=local -i inventory.yml play_install_omero.yml
+ansible-vault encrypt vars/vault.yml  
+sudo ansible-galaxy install -r requirements.yml
+sudo ansible-playbook --ask-vault-pass --become --connection=local -i inventory.yml play_install_omero.yml
 ```
 
