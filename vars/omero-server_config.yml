@@ -4,6 +4,7 @@
 # See https://omero.readthedocs.io/en/stable/sysadmins/config.html for all omero configs
   postgresql_version: "15"
   omero_server_release: 5.6.12
+  omero_server_systemd_limit_nofile: 16384
   omero_server_config_set:
     omero.certificates.owner: "/C=DE/ST=NRW/L=Dusseldorf/O=CAi"
     omero.client.icetransports: ssl,wss,tcp
