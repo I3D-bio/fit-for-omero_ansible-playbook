@@ -1,4 +1,4 @@
-# fit-for-omero_ansible-playbook
+# Fit for OMERO - Ansible playbook
 Ansible playbook examples to install OMERO used during the Fit for OMERO workshop.
 
 
@@ -13,13 +13,21 @@ See also [this OME repository](https://github.com/ome/prod-playbooks/tree/master
 
 # Using this repository
 
-The commands are given assuming you have a Rocky Linux 9. For Ubuntu 22.04, perform the equivalent commands.
-
+The commands are given assuming you have a Rocky Linux 9 or Ubuntu 22.04.
 Connect to your test server, update it and install prerequisites to run Ansible.
+
+For Rocky Linux 9
 ```
 sudoer> sudo dnf -y upgrade
 sudoer> sudo dnf install epel-release -y
 sudoer> sudo dnf install git ansible python3-pip -y
+sudoer> sudo reboot
+```
+
+For Ubuntu 22.04
+```
+sudoer> sudo apt-get update -y && sudo apt-get upgrade -y
+sudoer> sudo apt install -y git ansible python3-pip
 sudoer> sudo reboot
 ```
 
