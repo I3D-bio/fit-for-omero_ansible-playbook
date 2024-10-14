@@ -33,6 +33,6 @@ Encrypting the vault containing the passwords is good practice, but not a requir
 ```
 sudoer> ansible-vault encrypt vars/vault.yml  
 sudoer> sudo ansible-galaxy install -r requirements.yml
-sudoer> sudo ansible-playbook --ask-vault-pass --become --connection=local -i inventory.yml playbook.yml
+sudoer> sudo ansible-playbook --ask-vault-pass --become --connection=local -i inventory.yml play_install_omero.yml
 ```
 
