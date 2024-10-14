@@ -37,7 +37,7 @@ git clone https://github.com/I3D-bio/fit-for-omero_ansible-playbook && cd fit-fo
 ```
 
 Execute the playbook locally to install PostgreSQL, OMERO.server, and OMERO.web.
-Encrypting the vault containing the passwords is good practice, but not a requirement for this to work.
+Encrypting the vault containing the passwords is good practice, but not a requirement for this to work (in which case, do not use `--ask-vault-pass`).
 ```
 ansible-vault encrypt vars/vault.yml  
 sudo ansible-galaxy install -r requirements.yml
