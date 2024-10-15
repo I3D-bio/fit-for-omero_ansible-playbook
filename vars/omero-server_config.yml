@@ -7,7 +7,7 @@
   omero_server_systemd_limit_nofile: 16384
   omero_server_config_set:
     omero.certificates.owner: "/C=DE/ST=NRW/L=Dusseldorf/O=CAi"
-    omero.client.icetransports: ssl,wss,tcp
+    omero.client.icetransports: ssl,wss,tcp,ws
     omero.db.poolsize: 60
     omero.jvmcfg.max_system_memory: 3072
     omero.jvmcfg.percent.blitz: 50
