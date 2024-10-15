@@ -50,6 +50,8 @@ sudo ansible-playbook --ask-vault-pass --become --connection=local -i inventory.
 * Tempory fix of the memory leak with image import:
   * https://forum.image.sc/t/first-release-of-omero-process-container-steward/85067
   * https://github.com/glencoesoftware/omero-pc-steward#installation
+* For a full list of OMERO configurations, see the [admin documentation](https://omero.readthedocs.io/en/stable/sysadmins/config.html)
+
  
 # Server update
 An update of OMERO.sever and OMERO.web is performed by changing the desired version in the respective config files (`vars/omero-server_config.yml`, `vars/omero-web_config.yml`) and re-running the playbooks as described above.
