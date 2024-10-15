@@ -41,6 +41,8 @@
     omero.web.iviewer.enable_mirror: true
     omero.web.time_zone: Europe/Berlin
     omero.web.show_forgot_password: false
+    omero.web.nginx_server_extra_config:
+      - 'include /etc/nginx/conf.d-nested-includes/*.conf;'
   omero_web_python_addons:
     - "omero-py==5.19.5"
     - "omero-iviewer==0.14.0"
@@ -49,5 +51,4 @@
     - "omero-tagsearch==4.2.0"
     - "omero-autotag==4.0.1"
     - "django-redis==5.0.0"
-  omero.web.nginx_server_extra_config:
-    - 'include /etc/nginx/conf.d-nested-includes/*.conf;'
+  
