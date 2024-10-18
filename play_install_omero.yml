@@ -156,7 +156,7 @@
       ansible.builtin.lineinfile:
         path: "{{ omero_server_basedir }}/OMERO.server/etc/logback.xml"
         insertafter: '<!-- All below are ROOT loggers -->'
-        line: '<logger name="com.glencoesoftware" level="INFO"/>'
+        line: '  <logger name="com.glencoesoftware" level="INFO"/>'
       become: yes
 
   handlers:
