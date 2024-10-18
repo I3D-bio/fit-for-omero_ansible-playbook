@@ -30,6 +30,7 @@ sudo apt-get update -y && sudo apt-get upgrade -y
 sudo apt install -y git ansible python3-pip
 sudo reboot
 ```
+**IMPORTANT NOTE**: this ansible playbook uses ufw to set the firewall rules for Ubuntu. If you use a different firewall or do not wish for Ansible to install and configure ufw, remove the corresponding firewall tasks from `play_install_omero.yml`.
 
 Clone this repository with a sudoer account
 ```
