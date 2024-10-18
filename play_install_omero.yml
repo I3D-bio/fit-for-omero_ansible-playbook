@@ -9,6 +9,7 @@
 
   vars:
     firewall_ports:
+      - { port: 22, proto: "tcp" }
       - { port: 80, proto: "tcp" }
       - { port: 443, proto: "tcp" }
       - { port: 4063, proto: "tcp" }
