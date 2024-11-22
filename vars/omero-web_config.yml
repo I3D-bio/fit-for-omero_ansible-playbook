@@ -37,7 +37,6 @@
         BACKEND: "django_redis.cache.RedisCache"
         LOCATION: "redis://127.0.0.1:6379/0"
     omero.web.session_engine: "django.contrib.sessions.backends.cache"
-    omero_web_setup_redis_session: true
     omero.web.iviewer.enable_mirror: true
     omero.web.time_zone: Europe/Berlin
     omero.web.show_forgot_password: false
@@ -51,4 +50,5 @@
     - "omero-tagsearch==4.2.0"
     - "omero-autotag==4.0.1"
     - "django-redis==5.0.0"
+  omero_web_setup_redis_session: true
   
