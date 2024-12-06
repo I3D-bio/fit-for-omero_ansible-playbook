@@ -120,25 +120,11 @@
       set_fact:
         selinux_enabled: "{{ ansible_facts.selinux.status == 'enabled' }}"
 
-    - name: system packages | install selinux utilities
+    - name: SELinux | Add port 4066 to http_port_t type using shell command
+      command: semanage port -a -t http_port_t -p tcp 4066
+      when: selinux_enabled | default(false)
       become: true
-      package:
-      name:
-        - libselinux-python3
-        - libsemanage-python3
-        - policycoreutils-python3
-      state: present
-      when: selinux_enabled
-
-    - name: SELinux | Add port 4066 to http_port_t type if enable_websocket is true
-      ansible.posix.semanage:
-        seobject: port
-        state: present
-        ports: 4066
-        proto: tcp
-        setype: http_port_t
-      when: selinux_enabled  | default(false)
-      become: true
+      ignore_errors: true  # Avoid failure if the port is already added
 
     - name: Create a figure scripts directory
       become: true
